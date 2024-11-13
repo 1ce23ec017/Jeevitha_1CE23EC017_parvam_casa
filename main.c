@@ -1,49 +1,33 @@
 #include <stdio.h>
-#include <string.h>
+#include <ctype.h>
 
-void encodeBinaryToDNA(char* binaryString, int n) {
-    // Iterate through the binary string in pairs of two
-    for (int i = 0; i < n; i += 2) {
-        // Extract the current pair of bits
-        char pair[3];
-        pair[0] = binaryString[i];
-        pair[1] = binaryString[i + 1];
-        pair[2] = '\0'; // Null terminate the string
+void toTitleCase(char str[]) {
+    int i = 0;
 
-        // Check the pair and print corresponding DNA sequence character
-        if (strcmp(pair, "00") == 0) {
-            printf("A");
-        } else if (strcmp(pair, "01") == 0) {
-            printf("T");
-        } else if (strcmp(pair, "10") == 0) {
-            printf("C");
-        } else if (strcmp(pair, "11") == 0) {
-            printf("G");
+    // Traverse through the string
+    while (str[i] != '\0') {
+        // If the current character is the first character of a word, capitalize it
+        if (i == 0 || str[i - 1] == ' ') {
+            str[i] = toupper(str[i]);  // Convert to uppercase
+        } else {
+            str[i] = tolower(str[i]);  // Convert to lowercase
         }
+        i++;
     }
-    printf("\n");
 }
 
 int main() {
-    char binaryString[100]; // Array to store the binary string
-    int n;
+    char str[100];
 
-    // Input the binary string
-    printf("Enter the binary string (even length): ");
-    scanf("%s", binaryString);
+    // Input a string
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);  // Read string with spaces
 
-    // Calculate the length of the string
-    n = strlen(binaryString);
+    // Convert the string to title case
+    toTitleCase(str);
 
-    // Ensure the length is even
-    if (n % 2 != 0) {
-        printf("Error: The length of the binary string should be even.\n");
-        return 1;
-    }
-
-    // Encode the binary string into a DNA sequence
-    printf("Encoded sequence: ");
-    encodeBinaryToDNA(binaryString, n);
+    // Output the result
+    printf("Title Case: %s\n", str);
 
     return 0;
 }
