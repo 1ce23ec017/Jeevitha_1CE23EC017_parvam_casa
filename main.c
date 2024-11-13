@@ -1,44 +1,25 @@
+
 #include <stdio.h>
+#include <string.h>
 
 int main() {
-    int n;
+    char sentence[1000];
 
-    // Read the number of elements in the array
-    printf("Enter the number of elements in the array: ");
-    scanf("%d", &n);
+    // Read a sentence from the user
+    printf("Enter a sentence: ");
+    fgets(sentence, sizeof(sentence), stdin);
 
-    // Check if the array has at least two elements
-    if (n < 2) {
-        printf("Array should have at least two elements.\n");
-        return 1;
+    // Remove the newline character at the end of the sentence (if any)
+    sentence[strcspn(sentence, "\n")] = '\0';
+
+    // Tokenize the sentence into words
+    char *word = strtok(sentence, " ");
+
+    // Print each word in a new line
+    while (word != NULL) {
+        printf("%s\n", word);
+        word = strtok(NULL, " ");  // Get the next word
     }
-
-    int arr[n]; // Define an array of size n
-
-    printf("Enter %d elements: ", n);
-
-    // Read the array elements
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
-    }
-
-    // Initialize the two largest numbers
-    int max1 = arr[0] > arr[1] ? arr[0] : arr[1];
-    int max2 = arr[0] < arr[1] ? arr[0] : arr[1];
-
-    // Traverse the array to find the two largest distinct elements
-    for (int i = 2; i < n; i++) {
-        if (arr[i] > max1) {
-            max2 = max1;  // Update the second largest
-            max1 = arr[i]; // Update the largest
-        } else if (arr[i] > max2 && arr[i] != max1) {
-            max2 = arr[i]; // Update the second largest if it's distinct
-        }
-    }
-
-    // Calculate and print the maximum sum of two distinct integers
-    int maxSum = max1 + max2;
-    printf("The maximum sum of two distinct integers is: %d\n", maxSum);
 
     return 0;
 }
