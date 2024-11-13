@@ -1,29 +1,41 @@
 #include <stdio.h>
-#include <stdlib.h> // For abs function
 
-// Function to update values
-void update(int *a, int *b) {
-    int sum = *a + *b;
-    int diff = abs(*a - *b);  // Calculate the absolute difference
+int countOccurrences(int *arr, int size, int element) {
+    int count = 0;
+    int *ptr = arr;  // Pointer to the beginning of the array
 
-    *a = sum;     // Set the value of a to the sum
-    *b = diff;    // Set the value of b to the absolute difference
+    for (int i = 0; i < size; i++) {
+        if (*ptr == element) {
+            count++;
+        }
+        ptr++;  // Move the pointer to the next element
+    }
+
+    return count;
 }
 
 int main() {
-    int a, b;
+    int n, element;
 
-    // Input values for a and b
-    printf("Enter the values of a and b: ");
-    scanf("%d %d", &a, &b);
+    // Input the size of the array
+    printf("Enter the number of elements in the array: ");
+    scanf("%d", &n);
 
-    // Call the update function
-    update(&a, &b);
+    int arr[n];
 
-    // Output the results
-    printf("After update:\n");
-    printf("a = %d\n", a);  // Sum of original a and b
-    printf("b = %d\n", b);  // Absolute difference of original a and b
+    // Input the elements of the array
+    printf("Enter the elements of the array:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Input the element to count
+    printf("Enter the element to count occurrences of: ");
+    scanf("%d", &element);
+
+    // Call the function and display the result
+    int occurrences = countOccurrences(arr, n, element);
+    printf("The element %d appears %d times in the array.\n", element, occurrences);
 
     return 0;
 }
