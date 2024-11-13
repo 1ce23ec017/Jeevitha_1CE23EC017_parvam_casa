@@ -1,24 +1,31 @@
+at integer:
 
 #include <stdio.h>
-#include <string.h>
 
 int main() {
-    char sentence[1000];
+    int number;
+    int digitFrequency[10] = {0};  // Array to store the frequency of each digit (0-9)
 
-    // Read a sentence from the user
-    printf("Enter a sentence: ");
-    fgets(sentence, sizeof(sentence), stdin);
+    // Read an integer from the user
+    printf("Enter a number: ");
+    scanf("%d", &number);
 
-    // Remove the newline character at the end of the sentence (if any)
-    sentence[strcspn(sentence, "\n")] = '\0';
+    // Handle the case where the number is negative
+    if (number < 0) {
+        number = -number;
+    }
 
-    // Tokenize the sentence into words
-    char *word = strtok(sentence, " ");
+    // Process each digit of the number
+    while (number > 0) {
+        int digit = number % 10;  // Extract the last digit
+        digitFrequency[digit]++;   // Increment the frequency of the extracted digit
+        number /= 10;              // Remove the last digit
+    }
 
-    // Print each word in a new line
-    while (word != NULL) {
-        printf("%s\n", word);
-        word = strtok(NULL, " ");  // Get the next word
+    // Print the frequency of each digit
+    printf("Digit frequencies:\n");
+    for (int i = 0; i < 10; i++) {
+        printf("Digit %d: %d\n", i, digitFrequency[i]);
     }
 
     return 0;
