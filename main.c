@@ -1,21 +1,23 @@
 #include <stdio.h>
 
-int countOccurrences(int *arr, int size, int element) {
-    int count = 0;
-    int *ptr = arr;  // Pointer to the beginning of the array
+void reverseArray(int *arr, int size) {
+    int *start = arr;           // Pointer to the beginning of the array
+    int *end = arr + size - 1;   // Pointer to the end of the array
 
-    for (int i = 0; i < size; i++) {
-        if (*ptr == element) {
-            count++;
-        }
-        ptr++;  // Move the pointer to the next element
+    while (start < end) {
+        // Swap the elements pointed by start and end
+        int temp = *start;
+        *start = *end;
+        *end = temp;
+
+        // Move the pointers towards each other
+        start++;
+        end--;
     }
-
-    return count;
 }
 
 int main() {
-    int n, element;
+    int n;
 
     // Input the size of the array
     printf("Enter the number of elements in the array: ");
@@ -29,13 +31,16 @@ int main() {
         scanf("%d", &arr[i]);
     }
 
-    // Input the element to count
-    printf("Enter the element to count occurrences of: ");
-    scanf("%d", &element);
+    // Call the function to reverse the array
+    reverseArray(arr, n);
 
-    // Call the function and display the result
-    int occurrences = countOccurrences(arr, n, element);
-    printf("The element %d appears %d times in the array.\n", element, occurrences);
+    // Display the reversed array
+    printf("Reversed array:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
 
     return 0;
 }
+
